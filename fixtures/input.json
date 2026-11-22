@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "id": "supply",
+      "voltage": "12"
+    },
+    {
+      "id": "middle",
+      "voltage": null
+    },
+    {
+      "id": "ground",
+      "voltage": "0"
+    }
+  ],
+  "resistors": [
+    {
+      "id": "r1",
+      "a": "supply",
+      "b": "middle",
+      "ohms": "2",
+      "rated_watts": "10"
+    },
+    {
+      "id": "r2",
+      "a": "middle",
+      "b": "ground",
+      "ohms": "4",
+      "rated_watts": "12"
+    }
+  ]
+}
