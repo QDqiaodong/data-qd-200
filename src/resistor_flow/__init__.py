@@ -6,6 +6,12 @@ from .datasets import (
     HoldoutInfeasible,
     build_datasets,
 )
+from .handover import (
+    HandoverError,
+    deliver_volumes,
+    review_case,
+    seal,
+)
 from .measurements import (
     MeasurementError,
     publish,
@@ -21,13 +27,17 @@ from .review import (
 __all__ = [
     'DatasetError',
     'DatasetInputError',
+    'HandoverError',
     'HoldoutInfeasible',
     'MeasurementError',
     'ReviewInputError',
     'build_datasets',
+    'deliver_volumes',
     'publish',
     'read_current',
     'read_evidence',
     'read_version',
     'review',
+    'review_case',
+    'seal',
 ]
