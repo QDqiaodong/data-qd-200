@@ -73,4 +73,14 @@ uv pip check --python .venv/bin/python
 接口字段、版本语义与故障边界的完整约定见
 [数据契约](docs/contract.md#离线实测数据发布链路)。
 
+## 离线拟合/复验数据集构建
+
+`resistor_flow.datasets.build_datasets(store_dir, manifest)` 从上述归档的
+指定历史版本构造一对可直接消费的数据集：`fit`（估计仪器修正参数）与
+`holdout`（独立复验）。只读取标准观测，按物理样件与仪表校准批次求不可拆
+组，整组选取复验行使 `L`、`H` 精确命中调用方配额，其余进拟合集；不导入
+求解器、不改发布协议与既有入口、不推进归档版本。清单格式、输出字段、
+无解行为（`HoldoutInfeasible` 与输入错误 `DatasetInputError` 区分）及
+128 MiB 下的可复现验收见 [数据集构建文档](docs/datasets.md)。
+
 本仓提供当前文档描述的业务基线；尚未实现的演进能力见契约中的集成说明，不承诺固定数量的后续任务。
