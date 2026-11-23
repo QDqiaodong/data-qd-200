@@ -13,15 +13,21 @@ from .measurements import (
     read_evidence,
     read_version,
 )
+from .review import (
+    ReviewInputError,
+    review,
+)
 
 __all__ = [
     'DatasetError',
     'DatasetInputError',
     'HoldoutInfeasible',
     'MeasurementError',
+    'ReviewInputError',
     'build_datasets',
     'publish',
     'read_current',
     'read_evidence',
     'read_version',
+    'review',
 ]
