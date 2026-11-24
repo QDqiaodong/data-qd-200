@@ -1,5 +1,12 @@
 """Offline business baseline 0.1.0."""
 
+from .assembly import (
+    AssemblyError,
+    AssemblyInputError,
+    assemble_batch,
+    assembly_batch,
+    run_assembly,
+)
 from .calibration import (
     MAX_REQUESTS as CALIBRATION_MAX_REQUESTS,
     CalibrationError,
@@ -32,6 +39,12 @@ from .handover import (
     review_case,
     seal,
 )
+from .modules import (
+    ModulePackageError,
+    build_module_package,
+    pack_module,
+    package_module,
+)
 from .measurements import (
     MeasurementError,
     publish,
@@ -45,6 +58,8 @@ from .review import (
 )
 
 __all__ = [
+    'AssemblyError',
+    'AssemblyInputError',
     'CALIBRATION_MAX_REQUESTS',
     'CalibrationError',
     'CalibrationInputError',
@@ -55,10 +70,14 @@ __all__ = [
     'HandoverError',
     'HoldoutInfeasible',
     'MeasurementError',
+    'ModulePackageError',
     'QualificationError',
     'QualificationInputError',
     'ReviewInputError',
+    'assemble_batch',
+    'assembly_batch',
     'build_datasets',
+    'build_module_package',
     'calibrate',
     'calibration_batch',
     'deliver',
@@ -66,6 +85,8 @@ __all__ = [
     'deliver_volumes',
     'evaluate_batch',
     'evaluate_calibration',
+    'pack_module',
+    'package_module',
     'process_batch',
     'publish',
     'qualify',
@@ -75,6 +96,7 @@ __all__ = [
     'read_version',
     'review',
     'review_case',
+    'run_assembly',
     'run_batch',
     'seal',
 ]
