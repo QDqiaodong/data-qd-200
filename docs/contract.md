@@ -87,3 +87,25 @@
 - 没有候选或候选不唯一时用两个不同状态区分，均不交付任何行或补测区间。
 
 接口、状态、区间与失败边界的完整约定见 [质量复核文档](review.md)。
+
+# 离线标定可行集、资格复验与盲测交付
+
+`resistor_flow.calibration.calibration_batch`（同义入口
+`resistor_flow.qualification.qualify`、`resistor_flow.delivery.deliver`）
+在数据集构建契约之上做一轮只读批处理：用 `build_datasets` 的 `fit.rows` /
+`holdout.rows` 与标准观测 `volts`，在调用方给定且增益两端严格为正的区间内，
+精确求 `y=g*x+b` 的完整可行参数集（区域、线段、点或空集），再在整个可行集上
+逐见证以“完整换算区间被参考区间闭包含 + 至少两个不同见证 x”签发 L/H 资格与
+闭覆盖范围，最后按“条件未签发 → 超出覆盖范围 → 精度不足”的固定优先级交付绝
+对量或同参耦合差值 `(x1-x2)g` 的精确闭区间。
+
+- 参考区间表以 `(run_id,tick,resistor_id)` 为键，必须恰好覆盖两侧全部实际
+  行；输入区间与下游 `x/max_width` 用有界十进制字符串解析，界可相等、宽度非
+  负；输出数值为整数或 `n/d` 字符串。
+- 整批状态为 `feasible` / `fit_empty` / `fit_infeasible`（后两者不签发、不
+  交付换算值）。输入/覆盖错误抛 `CalibrationInputError`（同时是
+  `DatasetInputError`、`ValueError`）；未知历史版本按 `DatasetInputError`，
+  合法但无法精确拆分的清单仍抛独立的 `HoldoutInfeasible`。
+- 最多 36,000 项请求，空批可只查资格；拒付项不附极值或点估计；结果按条件、
+  行键、请求 ID 确定性排序。完整字段、Python 调用与性能验收见
+  [标定与交付文档](calibration.md)。

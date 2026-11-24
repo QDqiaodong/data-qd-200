@@ -83,6 +83,18 @@ uv pip check --python .venv/bin/python
 无解行为（`HoldoutInfeasible` 与输入错误 `DatasetInputError` 区分）及
 128 MiB 下的可复现验收见 [数据集构建文档](docs/datasets.md)。
 
+## 离线标定可行集、资格复验与盲测交付
+
+`resistor_flow.calibration.calibration_batch(store_dir, manifest, references,
+gain_range, offset_range, requests)` 在同一轮只读离线批处理中，用 `fit.rows`
+求 `y=g*x+b` 的完整精确可行参数集（不挑单一最优解、不拼未出现的极值参数对，
+线段/点同样有效），在整个可行集上逐见证裁决 L/H 资格与覆盖范围，再按资格交
+付绝对量或同参耦合的“第一减第二”精确差值区间。空拟合与矛盾拟合是不同的整批
+状态；条件未签发、超出覆盖范围、精度不足按固定优先级拒付且不附极值；最多
+36,000 项、空请求批也可查看资格。全部精确有理数计算，输出整数或 `n/d` 字符
+串。字段、状态、失败分类、Python 调用与 12,004 观测/36,000 请求、CPU≤20s、
+256 MiB 的可复现验收见 [标定与交付文档](docs/calibration.md)。
+
 本仓提供当前文档描述的业务基线；尚未实现的演进能力见契约中的集成说明，不承诺固定数量的后续任务。
 
 ## 离线标准观测质量复核
